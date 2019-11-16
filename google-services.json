@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "499649326091",
+    "firebase_url": "https://epitech-hybrid-5a5c5.firebaseio.com",
+    "project_id": "epitech-hybrid-5a5c5",
+    "storage_bucket": "epitech-hybrid-5a5c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499649326091:android:e10b50003cba30b72dab0e",
+        "android_client_info": {
+          "package_name": "com.app.gpsshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499649326091-7l0c669b5v1c72i3p6qqhi3ip5a9bsak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB73im_QoE3tpTEhreQIJi-Sb4mlieiq5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499649326091-7l0c669b5v1c72i3p6qqhi3ip5a9bsak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
