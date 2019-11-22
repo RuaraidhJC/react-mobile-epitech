@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Notifications } from 'expo';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -13,19 +14,13 @@ export default class Home extends React.Component {
     this.state = {
       location: null,
       coords: [],
+      notifications: [],
       openSendPage: false
     };
   }
 
-  async submit() {
-    const response = await Network.post("push", {
-      address: this.state.location,
-      coordinate: this.state.coords,
-      to: email
-    });
-  }
-
   async componentDidMount() {
+    this._notificationSubscription = Notifications.addListener((notification) => {if (this.state.notifications.find(x => x.notificationId === notification.notificationId) === undefined) {this.setState({notifications:[...this.state.notifications, notification]})}})
     this._getLocationAsync().then(() => {
       setTimeout(() => {
         this.componentDidMount();
@@ -74,7 +69,8 @@ export default class Home extends React.Component {
               latitudeDelta: 0.1,
               longitudeDelta: 0.1
             }}>    
-            <MapView.Marker coordinate={{latitude: userLatitude, longitude: userLongitutde}} title="My Location"/>  
+            <MapView.Marker coordinate={{latitude: userLatitude, longitude: userLongitutde}} title="My Location"/>
+            {this.state.notifications.length !== 0 && this.state.notifications.map((elem) => <MapView.Marker key={elem.notificationId} coordinate={{latitude: elem.data.coordinate[0], longitude:elem.data.coordinate[1]}} title={elem.data.email}/>)}
           </MapView>
           <Button onPress={() => this.setState({openSendPage: true})} style={{position: 'absolute', bottom: 10}} uppercase size='small' color='rgb(0, 177, 238)'>Share my position</Button>   
         </Block>

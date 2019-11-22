@@ -7,8 +7,10 @@ export default function ShareGps(props) {
   const [email, setEmail] = useState('');
 
   const submit = async () => {
+    console.log('coords: ', props.coordinate)
     const response = await Network.post("push", {
       address: props.address,
+      coordinate: props.coordinate,
       to: email
     });
 
