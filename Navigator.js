@@ -11,7 +11,7 @@ const NonAuthedStack = createSwitchNavigator({
   registerScreen: { screen: Register },
 }, {
   headerMode: 'none',
-  initialRouteName: 'choiceScreen'
+  initialRouteName: 'loginScreen'
 });
 
 const Main = createSwitchNavigator({

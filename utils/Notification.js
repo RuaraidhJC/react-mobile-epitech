@@ -16,7 +16,7 @@ export default async function registerForPushNotificationsAsync() {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     finalStatus = status;
   }
-
+  console.log('notif status: ', finalStatus)
   // Stop here if the user did not grant permissions
   if (finalStatus !== 'granted') {
     return;

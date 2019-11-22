@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import ShareGps from "../modals/ShareGps";
+import MapView from 'react-native-maps';
+import { Block, Button, Text } from 'galio-framework'
+import Network from "../utils/Network";
+import ShareGps from '../modals/ShareGps'
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       location: null,
+      coords: [],
       openSendPage: false
     };
+  }
+
+  async submit() {
+    const response = await Network.post("push", {
+      address: this.state.location,
+      coordinate: this.state.coords,
+      to: email
+    });
   }
 
   async componentDidMount() {
@@ -33,6 +45,7 @@ export default class Home extends React.Component {
     const location = await Location.getCurrentPositionAsync({});
     const latitude = location.coords.latitude;
     const longitude = location.coords.longitude;
+    this.setState({coords: [latitude, longitude]})
     const geo = (await Location.reverseGeocodeAsync({latitude, longitude}))[0];
     let address = geo.name + " ";
     address += geo.street + " ";
@@ -45,14 +58,34 @@ export default class Home extends React.Component {
   async closeModal() {
     this.setState({openSendPage: false});
   }
-
+//<ShareGps visible={this.state.openSendPage} onRequestClose={() => this.closeModal()} address={this.state.location}/>
   render() {
+    if (this.state.location) {
+      userLatitude = this.state.coords[0];
+      userLongitutde = this.state.coords[1]
+      return (
+        <Block flex center>
+          <ShareGps visible={this.state.openSendPage} onRequestClose={() => this.closeModal()} address={this.state.location} coordinate={this.state.coords}/>
+          <MapView 
+            style={{flex: 1, width: Dimensions.get('window').width, height: Dimensions.get('window').height}}
+            initialRegion={{
+              latitude: userLatitude,
+              longitude: userLongitutde,
+              latitudeDelta: 0.1,
+              longitudeDelta: 0.1
+            }}>    
+            <MapView.Marker coordinate={{latitude: userLatitude, longitude: userLongitutde}} title="My Location"/>  
+          </MapView>
+          <Button onPress={() => this.setState({openSendPage: true})} style={{position: 'absolute', bottom: 10}} uppercase size='small' color='rgb(0, 177, 238)'>Share my position</Button>   
+        </Block>
+        
+      );
+    } 
     return (
-      <View>
-        <ShareGps visible={this.state.openSendPage} onRequestClose={() => this.closeModal()} address={this.state.location}/>
-        <Button onPress={() => this.setState({openSendPage: !this.state.openSendPage})} title="Partager ma position"/>
-        <Text>{this.state.location}</Text>
-      </View>
-    );
+      <Block flex center>
+        <Button style={{position: 'absolute', bottom: 10}} loading size='small' color='rgb(0, 177, 238)' loadingSize='large'>Loading...</Button>
+      </Block>
+      
+    )
   }
 }

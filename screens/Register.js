@@ -32,5 +32,6 @@ export default function Register(props) {
       <TextInput value={password} onChangeText={(value) => setPassword(value)} />
       <TextInput value={confirmPassword} onChangeText={(value) => setConfirmPassword(value)} />
       <Button onPress={() => submit()} title="Submit" />
+      <Button onPress={() => props.navigation.goBack()} title="Back" />
     </View>);
 }
