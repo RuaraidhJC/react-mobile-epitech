@@ -7,6 +7,7 @@ import MapView from 'react-native-maps';
 import { Block, Button, Text } from 'galio-framework'
 import Network from "../utils/Network";
 import ShareGps from '../modals/ShareGps'
+import SwipeGesture from "../utils/gesture";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -15,12 +16,13 @@ export default class Home extends React.Component {
       location: null,
       coords: [],
       notifications: [],
-      openSendPage: false
+      openSendPage: false,
+      errorMessage: 'None',
     };
   }
 
   async componentDidMount() {
-    this._notificationSubscription = Notifications.addListener((notification) => {if (this.state.notifications.find(x => x.notificationId === notification.notificationId) === undefined) {this.setState({notifications:[...this.state.notifications, notification]})}})
+    this._notificationSubscription = Notifications.addListener((notification) => {if (this.state.notifications.find(x => x.notificationId === notification.notificationId) === undefined) {console.log(notification);this.setState({notifications:[...this.state.notifications, notification]})}})
     this._getLocationAsync().then(() => {
       setTimeout(() => {
         this.componentDidMount();
@@ -53,35 +55,50 @@ export default class Home extends React.Component {
   async closeModal() {
     this.setState({openSendPage: false});
   }
+
+  onSwipePerformed = (action) => {
+    switch(action){
+      case 'up':{
+        this.setState({openSendPage: true});
+        break;
+      }
+    }
+  }
 //<ShareGps visible={this.state.openSendPage} onRequestClose={() => this.closeModal()} address={this.state.location}/>
   render() {
     if (this.state.location) {
-      userLatitude = this.state.coords[0];
-      userLongitutde = this.state.coords[1]
+      const userLatitude = this.state.coords[0];
+      const userLongitutde = this.state.coords[1]
       return (
         <Block flex center>
           <ShareGps visible={this.state.openSendPage} onRequestClose={() => this.closeModal()} address={this.state.location} coordinate={this.state.coords}/>
-          <MapView 
-            style={{flex: 1, width: Dimensions.get('window').width, height: Dimensions.get('window').height}}
+          <MapView
+            style={{flex: 8, width: Dimensions.get('window').width, height: Dimensions.get('window').height-270}}
             initialRegion={{
               latitude: userLatitude,
               longitude: userLongitutde,
               latitudeDelta: 0.1,
               longitudeDelta: 0.1
-            }}>    
+            }}>
             <MapView.Marker coordinate={{latitude: userLatitude, longitude: userLongitutde}} title="My Location"/>
             {this.state.notifications.length !== 0 && this.state.notifications.map((elem) => <MapView.Marker key={elem.notificationId} coordinate={{latitude: elem.data.coordinate[0], longitude:elem.data.coordinate[1]}} title={elem.data.email}/>)}
           </MapView>
-          <Button onPress={() => this.setState({openSendPage: true})} style={{position: 'absolute', bottom: 10}} uppercase size='small' color='rgb(0, 177, 238)'>Share my position</Button>   
+          <View style={{flex: 1}}>
+          <SwipeGesture
+            gestureStyle={{width:'100%', height:'100%', justifyContent: 'center', borderTopWidth:1, borderTopColor: 'grey'}}
+            onSwipePerformed={this.onSwipePerformed}>
+              <Text>Swipe up here to send your position to a friend</Text>
+          </SwipeGesture>
+          </View>
         </Block>
-        
+
       );
-    } 
+    }
     return (
       <Block flex center>
         <Button style={{position: 'absolute', bottom: 10}} loading size='small' color='rgb(0, 177, 238)' loadingSize='large'>Loading...</Button>
       </Block>
-      
+
     )
   }
 }
