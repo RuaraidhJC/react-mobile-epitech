@@ -8,6 +8,7 @@ import { Block, Button, Text } from 'galio-framework'
 import Network from "../utils/Network";
 import ShareGps from '../modals/ShareGps'
 import SwipeGesture from "../utils/gesture";
+import Image from "react-native-web/src/exports/Image";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -81,6 +82,7 @@ export default class Home extends React.Component {
               longitudeDelta: 0.1
             }}>
             <MapView.Marker coordinate={{latitude: userLatitude, longitude: userLongitutde}} title="My Location"/>
+
             {this.state.notifications.length !== 0 && this.state.notifications.map((elem) => <MapView.Marker key={elem.notificationId} coordinate={{latitude: elem.data.coordinate[0], longitude:elem.data.coordinate[1]}} title={elem.data.email}/>)}
           </MapView>
           <View style={{flex: 1}}>
