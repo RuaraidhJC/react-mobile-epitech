@@ -1,10 +1,10 @@
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
-import Storage from "./Storage";
+import Storage from './Storage';
 
 export default async function registerForPushNotificationsAsync() {
   const { status: existingStatus } = await Permissions.getAsync(
-    Permissions.NOTIFICATIONS
+    Permissions.NOTIFICATIONS,
   );
   let finalStatus = existingStatus;
 
@@ -16,13 +16,13 @@ export default async function registerForPushNotificationsAsync() {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     finalStatus = status;
   }
-  console.log('notif status: ', finalStatus)
+  console.log('notif status: ', finalStatus);
   // Stop here if the user did not grant permissions
   if (finalStatus !== 'granted') {
     return;
   }
 
   // Get the token that uniquely identifies this device
-  let token = await Notifications.getExpoPushTokenAsync();
+  const token = await Notifications.getExpoPushTokenAsync();
   Storage.setNotificationToken(token);
 }
