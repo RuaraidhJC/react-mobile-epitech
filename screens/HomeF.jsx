@@ -93,7 +93,7 @@ const HomeF = (props) => {
         >
           {isMapReady && user.Positions.length !== 0 && user.Positions.map((elem) => (
             <MapView.Marker
-              key={1}
+              //key={1}
               coordinate={{ latitude: elem.latitude, longitude: elem.longitude }}
               title="My Location"
             >
