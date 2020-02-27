@@ -11,10 +11,11 @@ const NonAuthedStack = createSwitchNavigator(
     choiceScreen: { screen: Choice },
     loginScreen: { screen: Login },
     registerScreen: { screen: Register },
+    profileScreen: { screen: Profile },
   },
   {
     headerMode: 'none',
-    initialRouteName: 'loginScreen',
+    initialRouteName: 'profileScreen',
   },
 );
 
