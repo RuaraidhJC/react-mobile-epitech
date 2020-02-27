@@ -4,5 +4,6 @@ import Notification from './utils/Notification';
 
 export default function App() {
   Notification();
+  console.log('lol');
   return <Navigator />;
 }
