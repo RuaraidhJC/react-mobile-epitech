@@ -59,7 +59,7 @@ export default function Login(props) {
       await Storage.setEmail(email);
       await Storage.setJwt(response.data.token);
       Network.defaults.headers.common.Authorization = response.data.token;
-      return navigation.navigate('homeScreen');
+      return navigation.navigate('homeeScreen');
     }
     setShow(true);
     return true;
