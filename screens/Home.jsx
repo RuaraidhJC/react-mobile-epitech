@@ -180,7 +180,7 @@ export default class Home extends React.Component {
               style={{
                 borderTopColor: 'grey',
                 height: '10%',
-                justifyContent: 'center',
+                //justifyContent: 'center',
               }}
               config={{
                 velocityThreshold: 0.3,

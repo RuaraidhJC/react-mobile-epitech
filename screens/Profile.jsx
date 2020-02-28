@@ -351,5 +351,5 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: theme.SIZES.BASE * 0.5,
         borderBottomLeftRadius: theme.SIZES.BASE * 0.5,
     },
-})
+});
 
