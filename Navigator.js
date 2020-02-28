@@ -3,8 +3,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Choice from './screens/Choice';
 import Register from './screens/Register';
 import Login from './screens/Login';
-import Home from './screens/Home.jsx';
+import Home from './screens/HomeF.jsx';
 import Profile from './screens/Profile.jsx';
+import Notification from "./utils/Notification";
+
 
 const NonAuthedStack = createSwitchNavigator(
   {
