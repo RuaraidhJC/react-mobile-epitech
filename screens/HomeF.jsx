@@ -122,28 +122,16 @@ const HomeF = (props) => {
                       />
                     ))}
         </MapView>
-        <GestureRecognizer
-          onSwipe={(gestureName) => console.log('swiped: ', gestureName)}
-          onSwipeUp={() => setOpenModal(true)}
-          style={{
-            borderTopColor: 'grey',
-            height: '10%',
-            justifyContent: 'center',
-          }}
-          config={{
-            velocityThreshold: 0.3,
-            directionalOffsetThreshold: 80,
-          }}
-        >
-          <Button
+
+        <Button
             style={{ alignSelf: 'center' }}
             uppercase
             size="small"
             color="rgb(0, 177, 238)"
-          >
+            onPress={() => {setOpenModal(true)}}
+        >
             Swipe up to share my position
-          </Button>
-        </GestureRecognizer>
+        </Button>
       </Block>
     );
   }
@@ -162,4 +150,21 @@ const HomeF = (props) => {
   );
 };
 
+
+/*
+* <GestureRecognizer
+          onSwipe={(gestureName) => console.log('swiped: ', gestureName)}
+          onSwipeUp={() => setOpenModal(true)}
+          style={{
+            borderTopColor: 'grey',
+            height: '10%',
+            justifyContent: 'center',
+          }}
+          config={{
+            velocityThreshold: 0.3,
+            directionalOffsetThreshold: 80,
+          }}
+        >
+*
+* */
 export default HomeF;

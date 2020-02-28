@@ -4,30 +4,83 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
+import {
+  Block, Accordion, Checkbox, Button, Text, Input, Slider,
+} from 'galio-framework';
 import Network from '../utils/Network';
-import {Block, Accordion, Checkbox, Button, Text, Input, Slider} from 'galio-framework';
 
 const StarRating = (props) => {
   const [choice, setChoice] = useState(0);
-  const {checkBoxStyle} = props;
+  const { checkBoxStyle } = props;
 
   console.log(choice, (choice > 2));
   return (
-      <Block row middle style={{marginVertical: 10, marginHorizontal: 10}}>
-        <Checkbox style={checkBoxStyle} iconName='star' initialValue={(choice > 2)} onChange={() => setChoice(1)}/>
-        <Checkbox style={checkBoxStyle} iconName='star' initialValue={(choice > 1)} onChange={() => setChoice(2)}/>
-        <Checkbox style={checkBoxStyle} iconName='star' initialValue={(choice > 2)} onChange={() => setChoice(3)}/>
-        <Checkbox style={checkBoxStyle} iconName='star' initialValue={(choice > 3)} onChange={() => setChoice(4)}/>
-        <Checkbox style={checkBoxStyle} iconName='star' initialValue={true} onChange={() => setChoice(5)}/>
-      </Block>
-  )
-};
+    <Block row middle style={{ marginVertical: 10, marginHorizontal: 10 }}>
+      <Button
+        onlyIcon
+        icon={(choice > 0) ? "star" : "staro"}
+        iconFamily="antdesign"
+        iconSize={30}
+        color="warning"
+        style={checkBoxStyle}
+        onPress={() => { setChoice(1); }}
+      >
+        A
+      </Button>
+      <Button
+        onlyIcon
+        icon={(choice > 1) ? "star" : "staro"}
+        iconFamily="antdesign"
+        iconSize={30}
+        color="warning"
+        style={checkBoxStyle}
+        onPress={() => { setChoice(2); }}
+      >
+        B
+      </Button>
+      <Button
+        onlyIcon
+        icon={(choice > 2) ? "star" : "staro"}
+        iconFamily="antdesign"
+        iconSize={30}
+        color="warning"
+        style={checkBoxStyle}
+        onPress={() => { setChoice(3); }}
+      >
+        C
+      </Button>
+      <Button
+        onlyIcon
+        icon={(choice > 3) ? "star" : "staro"}
+        iconFamily="antdesign"
+        iconSize={30}
+        color="warning"
+        style={checkBoxStyle}
+        onPress={() => { setChoice(4); }}
+      >
+        D
+      </Button>
+      <Button
+        onlyIcon
+        icon={(choice > 4) ? "star" : "staro"}
+        iconFamily="antdesign"
+        iconSize={30}
+        color="warning"
+        style={checkBoxStyle}
+        onPress={() => { setChoice(5); }}
+      >
+        E
+      </Button>
 
+
+    </Block>
+  );
+};
 
 
 function ShareGps(props) {
   const [message, setMessage] = useState('');
-  const [rating, setRating] = useState(5)
+  const [rating, setRating] = useState(5);
   const { visible, onRequestClose } = props;
 
   const submit = async () => {
@@ -56,37 +109,28 @@ function ShareGps(props) {
       onBackdropPress={onRequestClose}
     >
       <Block
-          style={{backgroundColor: 'white'}}
-          flex
-          safe
-          card
-          shadow
+        style={{ backgroundColor: 'white' }}
+        flex
+        safe
+        card
+        shadow
 
       >
-        <Block flex >
-          <Block flex middle style={{marginHorizontal: 10}}>
+        <Block flex>
+          <Block flex middle style={{ marginHorizontal: 10 }}>
             <Text p muted bold>Name your current location</Text>
             <Input
-                rounded
-                placeholder='(Optional) Message'
+              rounded
+              placeholder="(Optional) Message"
             />
           </Block>
           <Block flex center>
             <Text p muted bold>Rate your experience!</Text>
-            <Block row middle >
-              <Block flex={8} style={{horizontalMargin: 10}} >
-                <Slider
-
-                />
-              </Block>
-              <Block flex={2} middle>
-                <Text h3 muted>{rating}</Text>
-              </Block>
-            </Block>
+            <StarRating checkBoxStyle={{ marginHorizontal: 10, width: 40, height: 40 }} />
           </Block>
         </Block>
-        <Block flex >
-          <Button round color='error'>Press here to send</Button>
+        <Block flex>
+          <Button round color="error">Press here to send</Button>
         </Block>
       </Block>
 
@@ -102,15 +146,15 @@ StyleSheet.create({
   },
 });
 
-/*ShareGps.propTypes = {
+/* ShareGps.propTypes = {
   coordinate: PropTypes.arrayOf(PropTypes.number).isRequired,
   address: PropTypes.string.isRequired,
   onRequestClose: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
-};*/
+}; */
 
 export default ShareGps;
- /*
+/*
  <View
         style={{
           backgroundColor: 'white',
