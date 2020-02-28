@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Notifications } from 'expo';
-import {StyleSheet, Image, TouchableOpacity, Text} from 'react-native';
+import {
+  StyleSheet, Image,
+} from 'react-native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import MapView from 'react-native-maps';
 import GestureRecognizer from 'react-native-swipe-gestures';
-import { Block, Button} from 'galio-framework';
+import { Block, Button } from 'galio-framework';
 import ShareGps from '../modals/ShareGps';
+import Network from '../utils/Network';
+import useGlobalState from '../context/global';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +31,25 @@ const styles = StyleSheet.create({
   },
 });
 
+const NotificationListener = () => {
+  const globalState = useGlobalState();
+  const { setUser } = globalState;
+  const [notifications, setNotifications] = useState([]);
+
+  Notifications.addListener(async (notification) => {
+    if (notifications.find((x) => x.notificationId === notification.notificationId) === undefined) {
+      const response = await Network.get('/me');
+      if (response.data.success) {
+        setUser(response.data.data);
+        return null;
+      }
+      setNotifications([...notifications, notification]);
+    }
+  });
+
+  return null;
+};
+
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -39,26 +62,13 @@ export default class Home extends React.Component {
     };
   }
 
-  componentDidMount = async () => {
-    const { notifications } = this.state;
-    Notifications.addListener((notification) => {
-      if (
-        notifications.find(
-          (x) => x.notificationId === notification.notificationId,
-        ) === undefined
-      ) {
-        console.log(notification);
-        this.setState({
-          notifications: [...notifications, notification],
-        });
-      }
-    });
+  /*componentDidMount = async () => {
     this.getLocationAsync().then(() => {
       setTimeout(() => {
         this.componentDidMount();
       }, 2000);
     });
-  };
+  };*/
 
   getLocationAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -101,47 +111,48 @@ export default class Home extends React.Component {
 
 
     handleProfile = () => {
-        this.props.navigation.navigate('profileScreen');
-    }
+      this.props.navigation.navigate('profileScreen');
+    };
 
 
-  render() {
-    const {
-      notifications, coords, location, openSendPage, isMapReady,
-    } = this.state;
-    if (location) {
-      const userLatitude = coords[0];
-      const userLongitutde = coords[1];
-      return (
-        <Block flex center style={styles.container}>
+    render() {
+      const {
+        notifications, coords, location, openSendPage, isMapReady,
+      } = this.state;
+      if (location) {
+        const userLatitude = coords[0];
+        const userLongitutde = coords[1];
+        return (
+          <Block flex center style={styles.container}>
+            <NotificationListener />
 
             <Button
-                style={{ alignSelf: 'center' }}
-                uppercase
-                size="small"
-                color="rgb(206, 102, 89)"
-                onPress={this.handleProfile}
+              style={{ alignSelf: 'center' }}
+              uppercase
+              size="small"
+              color="rgb(206, 102, 89)"
+              onPress={this.handleProfile}
             >
-                Profile
+              Profile
             </Button>
 
-          <ShareGps
-            visible={openSendPage}
-            onRequestClose={() => this.closeModal()}
-            address={location}
-            coordinate={coords}
-          />
-          <MapView
-            style={styles.map}
-            onLayout={this.onMapLayout}
-            initialRegion={{
-              latitude: userLatitude,
-              longitude: userLongitutde,
-              latitudeDelta: 0.1,
-              longitudeDelta: 0.1,
-            }}
-          >
-            {isMapReady
+            <ShareGps
+              visible={openSendPage}
+              onRequestClose={() => this.closeModal()}
+              address={location}
+              coordinate={coords}
+            />
+            <MapView
+              style={styles.map}
+              onLayout={this.onMapLayout}
+              initialRegion={{
+                latitude: userLatitude,
+                longitude: userLongitutde,
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1,
+              }}
+            >
+              {isMapReady
               && (
               <MapView.Marker
                 coordinate={{ latitude: userLatitude, longitude: userLongitutde }}
@@ -151,7 +162,7 @@ export default class Home extends React.Component {
               </MapView.Marker>
               )}
 
-            {isMapReady && notifications.length !== 0
+              {isMapReady && notifications.length !== 0
                 && notifications.map((elem) => (
                   <MapView.Marker
                     key={elem.notificationId}
@@ -162,44 +173,44 @@ export default class Home extends React.Component {
                     title={elem.data.email}
                   />
                 ))}
-          </MapView>
-          <GestureRecognizer
-            onSwipe={(gestureName) => console.log('swiped: ', gestureName)}
-            onSwipeUp={this.onSwipePerformed}
-            style={{
-              borderTopColor: 'grey',
-              height: '10%',
-              justifyContent: 'center',
-            }}
-            config={{
-              velocityThreshold: 0.3,
-              directionalOffsetThreshold: 80,
-            }}
-          >
-            <Button
-              style={{ alignSelf: 'center' }}
-              uppercase
-              size="small"
-              color="rgb(0, 177, 238)"
+            </MapView>
+            <GestureRecognizer
+              onSwipe={(gestureName) => console.log('swiped: ', gestureName)}
+              onSwipeUp={this.onSwipePerformed}
+              style={{
+                borderTopColor: 'grey',
+                height: '10%',
+                justifyContent: 'center',
+              }}
+              config={{
+                velocityThreshold: 0.3,
+                directionalOffsetThreshold: 80,
+              }}
             >
-              Swipe up to share my position
-            </Button>
-          </GestureRecognizer>
+              <Button
+                style={{ alignSelf: 'center' }}
+                uppercase
+                size="small"
+                color="rgb(0, 177, 238)"
+              >
+                Swipe up to share my position
+              </Button>
+            </GestureRecognizer>
+          </Block>
+        );
+      }
+      return (
+        <Block flex center>
+          <Button
+            style={{ position: 'absolute', bottom: 10 }}
+            loading
+            size="small"
+            color="rgb(0, 177, 238)"
+            loadingSize="large"
+          >
+            Loading...
+          </Button>
         </Block>
       );
     }
-    return (
-      <Block flex center>
-        <Button
-          style={{ position: 'absolute', bottom: 10 }}
-          loading
-          size="small"
-          color="rgb(0, 177, 238)"
-          loadingSize="large"
-        >
-          Loading...
-        </Button>
-      </Block>
-    );
-  }
 }
