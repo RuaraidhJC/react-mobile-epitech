@@ -1,7 +1,9 @@
-import { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useReducer, useContext } from 'react';
 
 /* Action Types */
 const SET_USER = 'SET_USER';
+const SET_NOTIFICATION_TOKEN = 'SET_NOTIFICATION_TOKEN';
+const SET_EMAIL = 'SET_EMAIL';
 
 /* Define a context and a reducer for updating the context */
 const GlobalStateContext = createContext();
@@ -20,6 +22,16 @@ const initialState = {
 
 const globalStateReducer = (state, action) => {
     switch (action.type) {
+        case SET_EMAIL:
+            return {
+                ...state,
+                user: {...state.user, email: action.payload}
+            };
+        case SET_NOTIFICATION_TOKEN:
+            return {
+                ...state,
+                user: {...state.user, notificationToken: action.payload}
+            };
         case SET_USER:
             return {
                 ...state,
@@ -54,7 +66,21 @@ This also allows us to keep all of this state logic in this one file
 const useGlobalState = () => {
     const [state, dispatch] = useContext(GlobalStateContext);
 
-    const setUser = ({id, email, profileUrl, notificationToken, Positions, FriendReqs, Friends}) => {
+    const setNotificationToken = (notificationToken) => {
+        dispatch({
+            type: SET_NOTIFICATION_TOKEN,
+            payload: notificationToken
+        })
+    };
+
+    const setEmail = (email) => {
+        dispatch({
+            type: SET_EMAIL,
+            payload: email
+        })
+    };
+
+    const setUser = ({id, email, profileUrl, Positions, FriendReqs, Friends, notificationToken}) => {
         dispatch({
             type: SET_USER,
             payload: {
@@ -71,6 +97,8 @@ const useGlobalState = () => {
 
     return {
         setUser,
+        setEmail,
+        setNotificationToken,
         user: { ...state.user },
     };
 };
