@@ -1,6 +1,6 @@
 import React from 'react';
 import { Notifications } from 'expo';
-import { StyleSheet, Image} from 'react-native';
+import {StyleSheet, Image, TouchableOpacity, Text} from 'react-native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import MapView from 'react-native-maps';
@@ -98,6 +98,13 @@ export default class Home extends React.Component {
 
   // <ShareGps visible={this.state.openSendPage} onRequestClose={() =>
   // this.closeModal()} address={this.state.location}/>
+
+
+    handleProfile = () => {
+        this.props.navigation.navigate('profileScreen');
+    }
+
+
   render() {
     const {
       notifications, coords, location, openSendPage, isMapReady,
@@ -107,6 +114,17 @@ export default class Home extends React.Component {
       const userLongitutde = coords[1];
       return (
         <Block flex center style={styles.container}>
+
+            <Button
+                style={{ alignSelf: 'center' }}
+                uppercase
+                size="small"
+                color="rgb(206, 102, 89)"
+                onPress={this.handleProfile}
+            >
+                Profile
+            </Button>
+
           <ShareGps
             visible={openSendPage}
             onRequestClose={() => this.closeModal()}
