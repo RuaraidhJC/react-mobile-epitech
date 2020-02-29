@@ -6,6 +6,7 @@ import Login from './screens/Login';
 import Home from './screens/HomeF.jsx';
 import Profile from './screens/Profile.jsx';
 import Notification from "./utils/Notification";
+import ProfileWithState from "./screens/Profile";
 
 
 const NonAuthedStack = createSwitchNavigator(
@@ -24,7 +25,7 @@ const Main = createSwitchNavigator(
   {
     loginStack: { screen: NonAuthedStack },
     homeScreen: { screen: Home },
-    profileScreen: { screen: Profile },
+    profileScreen: { screen: ProfileWithState },
   },
   {
     // Default config for all screens
