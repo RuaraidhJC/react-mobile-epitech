@@ -102,7 +102,7 @@ export default class Home extends React.Component {
 
     handleProfile = () => {
         this.props.navigation.navigate('profileScreen');
-    }
+    };
 
 
   render() {
