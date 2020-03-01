@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, StyleSheet, TextInput,
 } from 'react-native';
@@ -7,18 +7,22 @@ import Modal from 'react-native-modal';
 import {
   Block, Accordion, Checkbox, Button, Text, Input, Slider,
 } from 'galio-framework';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import Network from '../utils/Network';
 
 const StarRating = (props) => {
   const [choice, setChoice] = useState(0);
-  const { checkBoxStyle } = props;
+  const { checkBoxStyle, getRating } = props;
 
-  console.log(choice, (choice > 2));
+  useEffect(() => {
+    getRating(choice);
+  });
+
   return (
     <Block row middle style={{ marginVertical: 10, marginHorizontal: 10 }}>
       <Button
         onlyIcon
-        icon={(choice > 0) ? "star" : "staro"}
+        icon={(choice > 0) ? 'star' : 'staro'}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
@@ -29,7 +33,7 @@ const StarRating = (props) => {
       </Button>
       <Button
         onlyIcon
-        icon={(choice > 1) ? "star" : "staro"}
+        icon={(choice > 1) ? 'star' : 'staro'}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
@@ -40,7 +44,7 @@ const StarRating = (props) => {
       </Button>
       <Button
         onlyIcon
-        icon={(choice > 2) ? "star" : "staro"}
+        icon={(choice > 2) ? 'star' : 'staro'}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
@@ -51,7 +55,7 @@ const StarRating = (props) => {
       </Button>
       <Button
         onlyIcon
-        icon={(choice > 3) ? "star" : "staro"}
+        icon={(choice > 3) ? 'star' : 'staro'}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
@@ -62,7 +66,7 @@ const StarRating = (props) => {
       </Button>
       <Button
         onlyIcon
-        icon={(choice > 4) ? "star" : "staro"}
+        icon={(choice > 4) ? 'star' : 'staro'}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
@@ -79,62 +83,79 @@ const StarRating = (props) => {
 
 
 function ShareGps(props) {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(null);
   const [rating, setRating] = useState(5);
-  const { visible, onRequestClose } = props;
+  const { visible, onRequestClose, coords } = props;
+
 
   const submit = async () => {
-    console.log(`to: ${message}`);
-    console.log('coords: ', props.coordinate);
-    await Network.post('push', {
-      address: props.address,
-      coordinate: props.coordinate,
-      to: message,
-    });
-    props.onRequestClose();
+      try {
+          const response = await Network.post('/position', {
+              message,
+              rating,
+              longitude: coords.longitude,
+              latitude: coords.latitude,
+          });
+          console.log(response);
+          onRequestClose();
+      } catch (err) {
+        console.log(err)
+      }
   };
 
   return (
-    <Modal
-      backdropColor="black"
-      backdropOpacity={0.7}
-      animationIn="bounceIn"
-      animationOut="bounceOut"
-      animationInTiming={600}
-      animationOutTiming={300}
-      backdropTransitionInTiming={600}
-      backdropTransitionOutTiming={300}
-      isVisible={visible}
-      onRequestClose={onRequestClose}
-      onBackdropPress={onRequestClose}
+    <GestureRecognizer
+      onSwipeUp={() => submit()}
+      style={{
+        flex: 1,
+      }}
+      config={{
+        velocityThreshold: 0.3,
+        directionalOffsetThreshold: 80,
+      }}
     >
-      <Block
-        style={{ backgroundColor: 'white' }}
-        flex
-        safe
-        card
-        shadow
-
+      <Modal
+        backdropColor="black"
+        backdropOpacity={0.7}
+        animationIn="bounceIn"
+        animationOut="bounceOut"
+        animationInTiming={600}
+        animationOutTiming={300}
+        backdropTransitionInTiming={600}
+        backdropTransitionOutTiming={300}
+        isVisible={visible}
+        onRequestClose={onRequestClose}
+        onBackdropPress={onRequestClose}
       >
-        <Block flex>
-          <Block flex middle style={{ marginHorizontal: 10 }}>
-            <Text p muted bold>Name your current location</Text>
-            <Input
-              rounded
-              placeholder="(Optional) Message"
-            />
-          </Block>
-          <Block flex center>
-            <Text p muted bold>Rate your experience!</Text>
-            <StarRating checkBoxStyle={{ marginHorizontal: 10, width: 40, height: 40 }} />
-          </Block>
-        </Block>
-        <Block flex>
-          <Button round color="error">Press here to send</Button>
-        </Block>
-      </Block>
+        <Block
+          style={{ backgroundColor: 'white', marginVertical: 30 }}
+          flex
+          safe
+          card
+          shadow
+        >
+          <Block flex>
+            <Block flex middle style={{ marginHorizontal: 10 }}>
+              <Text p muted bold>Name your current location</Text>
+              <Input
+                  onChangeText={(value) => {setMessage(value)}}
+                rounded
+                placeholder="(Optional) Message"
+              />
+            </Block>
+            <Block flex center>
 
-    </Modal>
+              <Text p muted bold>Rate your experience!</Text>
+
+              <StarRating checkBoxStyle={{ marginHorizontal: 10, width: 40, height: 40 }} getRating={(rating) => setRating(rating)} />
+            </Block>
+          </Block>
+          <Block flex middle>
+            <Text>Swipe up to send your current position</Text>
+          </Block>
+        </Block>
+      </Modal>
+    </GestureRecognizer>
   );
 }
 

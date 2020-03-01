@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import { Block, Button } from 'galio-framework';
 import MapView from 'react-native-maps';
 import { Image, StyleSheet } from 'react-native';
-import GestureRecognizer from 'react-native-swipe-gestures';
 import ShareGps from '../modals/ShareGps';
 import Network from '../utils/Network';
 import useGlobalState from '../context/global';
@@ -43,7 +41,7 @@ const getLocationAsync = async () => {
 
 const HomeF = (props) => {
   const globalState = useGlobalState();
-  const { setUser } = globalState;
+  const { user, setUser } = globalState;
   const [notifications, setNotifications] = useState([]);
   const [isMapReady, setIsMapReady] = useState(false);
   const [currentPosition, setCurrentPosition] = useState({ latitude: 0, longitude: 0 });
@@ -86,10 +84,11 @@ const HomeF = (props) => {
           Profile
         </Button>
         <ShareGps
+          coords={currentPosition}
           visible={openModal}
           onRequestClose={() => setOpenModal(false)}
-          coordinate={currentPosition}
         />
+
         <MapView
           style={styles.map}
           onLayout={() => { setIsMapReady(true); }}
@@ -106,12 +105,12 @@ const HomeF = (props) => {
                       coordinate={{ latitude: currentPosition.latitude, longitude: currentPosition.longitude }}
                       title="My Location"
                     >
-                      <Image source={{ uri: 'https://s3.amazonaws.com/37assets/svn/765-default-avatar.png' }} style={{ height: 35, width: 35 }} />
+                      <Image source={{ uri: user.profileUrl }} style={{ height: 35, width: 35 }} />
                     </MapView.Marker>
                     )}
 
-          {isMapReady && notifications.length !== 0
-                    && notifications.map((elem) => (
+          {isMapReady && user['Friends'].length !== 0
+                    && user['Friends']['Positions'].map((elem) => (
                       <MapView.Marker
                         key={elem.notificationId}
                         coordinate={{
@@ -119,18 +118,20 @@ const HomeF = (props) => {
                           longitude: elem.data.coordinate[1],
                         }}
                         title={elem.data.email}
-                      />
+                      >
+                          <Image source={{ uri: elem.profileUrl }} style={{ height: 35, width: 35 }} />
+                      </MapView.Marker>
                     ))}
         </MapView>
 
         <Button
-            style={{ alignSelf: 'center' }}
-            uppercase
-            size="small"
-            color="rgb(0, 177, 238)"
-            onPress={() => {setOpenModal(true)}}
+          style={{ alignSelf: 'center' }}
+          uppercase
+          size="small"
+          color="rgb(0, 177, 238)"
+          onPress={() => { setOpenModal(true); }}
         >
-            Swipe up to share my position
+          Swipe up to share my position
         </Button>
       </Block>
     );

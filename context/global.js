@@ -15,7 +15,7 @@ const initialState = {
         profileUrl: null,
         notificationToken: null,
         Positions: [],
-        FriendReqs: [],
+        OpenFriendReqs: [],
         Friends: [],
     },
 };
@@ -80,7 +80,7 @@ const useGlobalState = () => {
         })
     };
 
-    const setUser = ({id, email, profileUrl, Positions, FriendReqs, Friends, notificationToken}) => {
+    const setUser = ({id, email, profileUrl, Positions, OpenFriendReqs, Friends, notificationToken}) => {
         dispatch({
             type: SET_USER,
             payload: {
@@ -89,7 +89,7 @@ const useGlobalState = () => {
                 profileUrl,
                 notificationToken,
                 Positions,
-                FriendReqs,
+                OpenFriendReqs,
                 Friends
             }
         });
