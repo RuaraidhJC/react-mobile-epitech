@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import * as yup from 'yup';
-import PropTypes from 'prop-types';
-import { StyleSheet, Keyboard, ImageBackground } from 'react-native';
-import { Formik } from 'formik';
-import {
-  Block, Button, Input, Toast, Text,
-} from 'galio-framework';
+import React, { useState } from "react";
+import * as yup from "yup";
+import PropTypes from "prop-types";
+import { StyleSheet, Keyboard, ImageBackground } from "react-native";
+import { Formik } from "formik";
+import { Block, Button, Input, Toast, Text } from "galio-framework";
 
-import Network from '../utils/Network';
-import useGlobalState from '../context/global';
+import Network from "../utils/Network";
+import useGlobalState from "../context/global";
 
 export default function Login(props) {
   const [isShow, setShow] = useState(false);
@@ -18,41 +16,43 @@ export default function Login(props) {
   const schema = yup.object({
     email: yup
       .string()
-      .required('Required')
-      .email('Valid e-mail address required'),
+      .required("Required")
+      .email("Valid e-mail address required"),
     password: yup
       .string()
-      .required('Required')
-      .min(6, 'Password must be at least 6 characters')
-      .max(15, 'Password must be less than 15 characters'),
+      .required("Required")
+      .min(6, "Password must be at least 6 characters")
+      .max(15, "Password must be less than 15 characters")
   });
 
-  const submitLogin = async (values) => {
-    const response = await Network.post('/login', {
+  const submitLogin = async values => {
+    console.log(values)
+    const response = await Network.post("/login", {
       email: values.email,
       password: values.password,
-      notificationToken,
+      notificationToken
     });
     if (response.data.success) {
-      const me = await Network.get('/me');
+      const me = await Network.get("/me");
       setUser(me.data.data);
-      return props.navigation.navigate('homeScreen');
+      return props.navigation.navigate("homeScreen");
     }
     setShow(true);
     return true;
   };
 
-  const submitRegister = async (values) => {
+  const submitRegister = async values => {
+    console.log(values, notificationToken)
     const { navigation } = props;
-    const response = await Network.post('/signup', {
+    const response = await Network.post("/signup", {
       email: values.email,
       password: values.password,
-      notificationToken,
+      notificationToken
     });
     if (response.data.success) {
-      const me = await Network.get('/me');
+      const me = await Network.get("/me");
       setUser(me.data.data);
-      return navigation.navigate('homeScreen');
+      return navigation.navigate("homeScreen");
     }
     setShow(true);
     return true;
@@ -61,9 +61,9 @@ export default function Login(props) {
   return (
     <ImageBackground
       source={{
-        uri: 'https://images.unsplash.com/photo-1516528387618-afa90b13e000',
+        uri: "https://images.unsplash.com/photo-1516528387618-afa90b13e000"
       }}
-      style={{ width: '100%', height: '100%' }}
+      style={{ width: "100%", height: "100%" }}
     >
       <Toast round isShow={isShow} positionIndicator="bottom" color="warning">
         <Block row>
@@ -73,7 +73,7 @@ export default function Login(props) {
               icon="close"
               iconSize={24}
               iconColor="white"
-              style={{ width: 'auto', paddingHorizontal: 20 }}
+              style={{ width: "auto", paddingHorizontal: 20 }}
               iconFamily="fontawesome"
               color="transparent"
               onPress={() => setShow(false)}
@@ -82,7 +82,7 @@ export default function Login(props) {
           <Block flex={4} right center>
             <Text
               color="white"
-              style={{ width: 'auto', paddingHorizontal: 20 }}
+              style={{ width: "auto", paddingHorizontal: 20 }}
             >
               Bad email/password combination.
             </Text>
@@ -90,13 +90,13 @@ export default function Login(props) {
         </Block>
       </Toast>
       <Block flex center>
-        <Block flex style={{ width: '90%', justifyContent: 'center' }}>
+        <Block flex style={{ width: "90%", justifyContent: "center" }}>
           <Text color="white" h3>
             LOGIN
           </Text>
           <Formik
             validationSchema={schema}
-            initialValues={{ email: '', password: '' }}
+            initialValues={{ email: "", password: "" }}
             onSubmit={() => undefined}
           >
             {({
@@ -105,21 +105,21 @@ export default function Login(props) {
               setFieldTouched,
               errors,
               touched,
-              values,
+              values
             }) => (
               <Block center>
                 <Input
-                  onChangeText={handleChange('email')}
-                  onBlur={() => setFieldTouched('email')}
+                  onChangeText={handleChange("email")}
+                  onBlur={() => setFieldTouched("email")}
                   value={values.email}
                   style={
                     touched.email && errors.email
-                      ? { borderColor: 'red' }
+                      ? { borderColor: "red" }
                       : undefined
                   }
                   help={
                     touched.email && errors.email ? (
-                      <Text style={{ color: 'red' }}>{errors.email}</Text>
+                      <Text style={{ color: "red" }}>{errors.email}</Text>
                     ) : (
                       undefined
                     )
@@ -129,38 +129,37 @@ export default function Login(props) {
                 <Input
                   password
                   viewPass
-                  onChangeText={handleChange('password')}
-                  onBlur={() => setFieldTouched('password')}
+                  onChangeText={handleChange("password")}
+                  onBlur={() => setFieldTouched("password")}
                   value={values.password}
                   style={
                     touched.password && errors.password
-                      ? { borderColor: 'red' }
+                      ? { borderColor: "red" }
                       : undefined
                   }
                   help={
                     touched.password && errors.password ? (
-                      <Text style={{ color: 'red' }}>{errors.password}</Text>
+                      <Text style={{ color: "red" }}>{errors.password}</Text>
                     ) : (
                       undefined
                     )
                   }
                   placeholder="Password"
                 />
-                <Block row space="evenly" style={{ width: '90%' }}>
+                <Block row space="evenly" style={{ width: "90%" }}>
                   <Block flex left>
                     <Button
                       center
                       round
-                      style={{ width: 'auto', paddingHorizontal: 20 }}
+                      style={{ width: "auto", paddingHorizontal: 20 }}
                       color="rgb(0, 177, 238)"
-                      onPress={() => setFieldTouched('email')
-                        && setFieldTouched('password')
-                        && validateForm().then(() => {
-                          console.log(touched);
-                          console.log(errors);
+                      onPress={() =>
+                        setFieldTouched("email") &&
+                        setFieldTouched("password") &&
+                        validateForm().then(() => {
                           if (
-                            errors.password === undefined
-                            && errors.email === undefined
+                            errors.password === undefined &&
+                            errors.email === undefined
                           ) {
                             Keyboard.dismiss();
                             submitLogin(values);
@@ -177,16 +176,17 @@ export default function Login(props) {
                     <Button
                       center
                       round
-                      style={{ width: 'auto', paddingHorizontal: 20 }}
+                      style={{ width: "auto", paddingHorizontal: 20 }}
                       color="transparent"
-                      onPress={() => setFieldTouched('email')
-                        && setFieldTouched('password')
-                        && validateForm().then(() => {
+                      onPress={() =>
+                        setFieldTouched("email") &&
+                        setFieldTouched("password") &&
+                        validateForm().then(() => {
                           if (
-                            touched.email
-                            && touched.password
-                            && errors.password === undefined
-                            && errors.email === undefined
+                            touched.email &&
+                            touched.password &&
+                            errors.password === undefined &&
+                            errors.email === undefined
                           ) {
                             Keyboard.dismiss();
                             submitRegister(values);
@@ -194,7 +194,7 @@ export default function Login(props) {
                         })}
                       title="Register"
                     >
-                      <Text style={{ color: 'rgb(0, 177, 238)' }}>
+                      <Text style={{ color: "rgb(0, 177, 238)" }}>
                         Dont already have an account? Tap to register.
                       </Text>
                     </Button>
@@ -211,25 +211,25 @@ export default function Login(props) {
 
 Login.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired })
-    .isRequired,
+    .isRequired
 };
 
 StyleSheet.create({
   buttonRow: {
     marginTop: 10,
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    flexDirection: 'row',
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    flexDirection: "row"
   },
   form: {
     flex: 1,
-    width: '80%',
-    justifyContent: 'center',
+    width: "80%",
+    justifyContent: "center"
   },
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
+    alignItems: "center",
+    justifyContent: "space-between"
+  }
 });

@@ -1,8 +1,6 @@
-import React from 'react';
-import {
-  View, Button,
-} from 'react-native';
-import Notification from '../utils/Notification';
+import React from "react";
+import { View, Button } from "react-native";
+import Notification from "../utils/Notification";
 
 function Choice(props) {
   Notification();
@@ -10,11 +8,11 @@ function Choice(props) {
   return (
     <View>
       <Button
-        onPress={() => props.navigation.navigate('registerScreen')}
+        onPress={() => props.navigation.navigate("registerScreen")}
         title="Register"
       />
       <Button
-        onPress={() => props.navigation.navigate('loginScreen')}
+        onPress={() => props.navigation.navigate("loginScreen")}
         title="Login"
       />
     </View>
