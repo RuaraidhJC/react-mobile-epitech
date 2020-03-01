@@ -1,38 +1,32 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import Choice from './screens/Choice';
-import Register from './screens/Register';
-import Login from './screens/Login';
-import Home from './screens/HomeF.jsx';
-import Profile from './screens/Profile.jsx';
-import Notification from "./utils/Notification";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import Choice from "./screens/Choice";
+import Login from "./screens/Login";
+import Home from "./screens/HomeF";
 import ProfileWithState from "./screens/Profile";
-
 
 const NonAuthedStack = createSwitchNavigator(
   {
     choiceScreen: { screen: Choice },
-    loginScreen: { screen: Login },
-    registerScreen: { screen: Register },
+    loginScreen: { screen: Login }
   },
   {
-    headerMode: 'none',
-    initialRouteName: 'loginScreen',
-  },
+    headerMode: "none",
+    initialRouteName: "loginScreen"
+  }
 );
 
 const Main = createSwitchNavigator(
   {
     loginStack: { screen: NonAuthedStack },
     homeScreen: { screen: Home },
-    profileScreen: { screen: ProfileWithState },
+    profileScreen: { screen: ProfileWithState }
   },
   {
     // Default config for all screens
-    headerMode: 'none',
-    title: 'Main',
-    initialRouteName: 'loginStack',
-  },
+    headerMode: "none",
+    title: "Main",
+    initialRouteName: "loginStack"
+  }
 );
 
 const App = createAppContainer(Main);
