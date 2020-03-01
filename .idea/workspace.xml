@@ -2,22 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a74b11cd-45a2-43ff-8e6f-73489ada4493" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/screens/HomeF.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Navigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/Navigator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/context/global.js" beforeDir="false" afterPath="$PROJECT_DIR$/context/global.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modals/ShareGps.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/modals/ShareGps.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/Profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/Network.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/Network.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/Notification.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/Notification.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/HomeF.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/HomeF.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +78,7 @@
       <workItem from="1582754892082" duration="2745000" />
       <workItem from="1582899396610" duration="17522000" />
       <workItem from="1582986330199" duration="3338000" />
-      <workItem from="1583016357873" duration="17557000" />
+      <workItem from="1583016357873" duration="19920000" />
     </task>
     <servers />
   </component>
