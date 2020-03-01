@@ -2,7 +2,7 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import Choice from "./screens/Choice";
 import Login from "./screens/Login";
 import Home from "./screens/HomeF";
-import ProfileWithState from "./screens/Profile";
+import Profile from "./screens/ProfileF";
 
 const NonAuthedStack = createSwitchNavigator(
   {
@@ -19,7 +19,7 @@ const Main = createSwitchNavigator(
   {
     loginStack: { screen: NonAuthedStack },
     homeScreen: { screen: Home },
-    profileScreen: { screen: ProfileWithState }
+    profileScreen: { screen: Profile }
   },
   {
     // Default config for all screens
