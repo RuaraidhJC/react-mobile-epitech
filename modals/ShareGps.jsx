@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View, StyleSheet, TextInput,
-} from 'react-native';
-import PropTypes from 'prop-types';
-import Modal from 'react-native-modal';
-import {
-  Block, Accordion, Checkbox, Button, Text, Input, Slider,
-} from 'galio-framework';
-import GestureRecognizer from 'react-native-swipe-gestures';
-import Network from '../utils/Network';
+import React, { useState, useEffect } from "react";
+import { StyleSheet } from "react-native";
+import PropTypes from "prop-types";
+import Modal from "react-native-modal";
+import { Block, Button, Text, Input } from "galio-framework";
+import GestureRecognizer from "../utils/gestureRecognizer";
+import Network from "../utils/Network";
 
-const StarRating = (props) => {
+const StarRating = props => {
   const [choice, setChoice] = useState(0);
   const { checkBoxStyle, getRating } = props;
 
@@ -22,96 +18,102 @@ const StarRating = (props) => {
     <Block row middle style={{ marginVertical: 10, marginHorizontal: 10 }}>
       <Button
         onlyIcon
-        icon={(choice > 0) ? 'star' : 'staro'}
+        icon={choice > 0 ? "star" : "staro"}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
         style={checkBoxStyle}
-        onPress={() => { setChoice(1); }}
+        onPress={() => {
+          setChoice(1);
+        }}
       >
         A
       </Button>
       <Button
         onlyIcon
-        icon={(choice > 1) ? 'star' : 'staro'}
+        icon={choice > 1 ? "star" : "staro"}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
         style={checkBoxStyle}
-        onPress={() => { setChoice(2); }}
+        onPress={() => {
+          setChoice(2);
+        }}
       >
         B
       </Button>
       <Button
         onlyIcon
-        icon={(choice > 2) ? 'star' : 'staro'}
+        icon={choice > 2 ? "star" : "staro"}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
         style={checkBoxStyle}
-        onPress={() => { setChoice(3); }}
+        onPress={() => {
+          setChoice(3);
+        }}
       >
         C
       </Button>
       <Button
         onlyIcon
-        icon={(choice > 3) ? 'star' : 'staro'}
+        icon={choice > 3 ? "star" : "staro"}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
         style={checkBoxStyle}
-        onPress={() => { setChoice(4); }}
+        onPress={() => {
+          setChoice(4);
+        }}
       >
         D
       </Button>
       <Button
         onlyIcon
-        icon={(choice > 4) ? 'star' : 'staro'}
+        icon={choice > 4 ? "star" : "staro"}
         iconFamily="antdesign"
         iconSize={30}
         color="warning"
         style={checkBoxStyle}
-        onPress={() => { setChoice(5); }}
+        onPress={() => {
+          setChoice(5);
+        }}
       >
         E
       </Button>
-
-
     </Block>
   );
 };
-
 
 function ShareGps(props) {
   const [message, setMessage] = useState(null);
   const [rating, setRating] = useState(5);
   const { visible, onRequestClose, coords } = props;
 
-
   const submit = async () => {
-      try {
-          const response = await Network.post('/position', {
-              message,
-              rating,
-              longitude: coords.longitude,
-              latitude: coords.latitude,
-          });
-          console.log(response);
-          onRequestClose();
-      } catch (err) {
-        console.log(err)
-      }
+    try {
+      const response = await Network.post("/position", {
+        message,
+        rating,
+        longitude: coords.longitude,
+        latitude: coords.latitude
+      });
+      console.log(response);
+      onRequestClose();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <GestureRecognizer
       onSwipeUp={() => submit()}
       style={{
-        flex: 1,
+        flex: 1
       }}
       config={{
         velocityThreshold: 0.3,
-        directionalOffsetThreshold: 80,
+        directionalOffsetThreshold: 80
       }}
     >
       <Modal
@@ -128,7 +130,7 @@ function ShareGps(props) {
         onBackdropPress={onRequestClose}
       >
         <Block
-          style={{ backgroundColor: 'white', marginVertical: 30 }}
+          style={{ backgroundColor: "white", marginVertical: 30 }}
           flex
           safe
           card
@@ -136,18 +138,26 @@ function ShareGps(props) {
         >
           <Block flex>
             <Block flex middle style={{ marginHorizontal: 10 }}>
-              <Text p muted bold>Name your current location</Text>
+              <Text p muted bold>
+                Name your current location
+              </Text>
               <Input
-                  onChangeText={(value) => {setMessage(value)}}
+                onChangeText={value => {
+                  setMessage(value);
+                }}
                 rounded
                 placeholder="(Optional) Message"
               />
             </Block>
             <Block flex center>
+              <Text p muted bold>
+                Rate your experience!
+              </Text>
 
-              <Text p muted bold>Rate your experience!</Text>
-
-              <StarRating checkBoxStyle={{ marginHorizontal: 10, width: 40, height: 40 }} getRating={(rating) => setRating(rating)} />
+              <StarRating
+                checkBoxStyle={{ marginHorizontal: 10, width: 40, height: 40 }}
+                getRating={rating => setRating(rating)}
+              />
             </Block>
           </Block>
           <Block flex middle>
@@ -161,10 +171,10 @@ function ShareGps(props) {
 
 StyleSheet.create({
   buttonStyle: {
-    flexDirection: 'column',
+    flexDirection: "column",
     height: 60,
-    alignItems: 'center',
-  },
+    alignItems: "center"
+  }
 });
 
 /* ShareGps.propTypes = {
