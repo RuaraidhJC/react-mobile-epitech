@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { View,
     Text,
@@ -9,7 +10,6 @@ import { View,
 } from 'react-native'
 
 import { LinearGradient } from 'expo-linear-gradient';
-
 // Galio components
 import {
     Card, Block, NavBar, Icon, Button
@@ -81,22 +81,21 @@ const cardsreq = [
 
 export default class Profile extends React.Component {
     state = {
-        email: null,
-        loading: true
+      email: null,
+      loading: true,
 
-};
+    };
 
     componentDidMount() {
-
-        Promise.all(this.getUserData())
-            .then(([email]) => {
-                this.setState({email, loading: false});
-                console.log("email set");
-                console.log(this.email);
-            })
-            .catch(error => {
-                this.setState({loading : false });
-            });
+      Promise.all(this.getUserData())
+        .then(([email]) => {
+          this.setState({ email, loading: false });
+          console.log('email set');
+          console.log(this.email);
+        })
+        .catch((error) => {
+          this.setState({ loading: false });
+        });
     }
 
     getUserData = async () => {
@@ -254,7 +253,6 @@ export default class Profile extends React.Component {
                 </ScrollView>
                 </Block>
             </View>
-
         )
     }
 }

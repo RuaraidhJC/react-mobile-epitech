@@ -2,7 +2,9 @@ import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Storage from './Storage';
 
+
 export default async function registerForPushNotificationsAsync() {
+
   const { status: existingStatus } = await Permissions.getAsync(
     Permissions.NOTIFICATIONS,
   );
@@ -24,5 +26,5 @@ export default async function registerForPushNotificationsAsync() {
 
   // Get the token that uniquely identifies this device
   const token = await Notifications.getExpoPushTokenAsync();
-  Storage.setNotificationToken(token);
+  return token;
 }
