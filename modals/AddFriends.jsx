@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {
-  View, StyleSheet, TextInput,
+  StyleSheet,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 import {
-  Block, Accordion, Checkbox, Button, Text, Input, Slider,
+  Block, Button, Input
 } from 'galio-framework';
+
 import Network from '../utils/Network';
 
 
@@ -45,12 +45,10 @@ function AddFriends(props) {
       onBackdropPress={onRequestClose}
     >
       <Block
-        style={{ backgroundColor: 'white' }}
-        flex
+        style={styles.block}
         safe
         card
         shadow
-
       >
         <Block flex>
             <Input
@@ -60,7 +58,7 @@ function AddFriends(props) {
             />
         </Block>
         <Block flex>
-            <Button round color="error" onPress={submit}>Press here to send</Button>
+            <Button round color="info" onPress={submit}>Press here to send</Button>
         </Block>
       </Block>
 
@@ -68,26 +66,16 @@ function AddFriends(props) {
   );
 }
 
-StyleSheet.create({
+const styles = StyleSheet.create({
   buttonStyle: {
     flexDirection: 'column',
     height: 50,
     alignItems: 'center',
   },
+  block : {
+    backgroundColor: 'white',
+    height: '30%',
+  }
 });
 
 export default AddFriends;
-/*
- <View
-        style={{
-          backgroundColor: 'white',
-          borderRadius: 4,
-          flexDirection: 'column',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-        }}
-      >
-        <TextInput onChangeText={(text) => setMessage(text)} />
-        <Button onPress={() => submit()} title="Envoyer à mon ami!" />
-      </View>
-  */
