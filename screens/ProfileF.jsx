@@ -216,7 +216,6 @@ export default function Profile(props) {
 
             {user.Friends.length !== 0 &&
               user.Friends.map((card, id) => (
-                //       <TouchableOpacity onPress={() => this.clickFriend(id, card.email)}>
                 <Card
                   key={`friend-${card.email}`}
                   flex
@@ -234,8 +233,17 @@ export default function Profile(props) {
                       style={styles.gradient}
                     />
                   ) : null}
+                        <Button
+                            style={[styles.button]}
+                            uppercase
+                            shadowless
+                            size="small"
+                            color="rgb(176, 30, 11)"
+                            onPress={() => clickFriend(id, card.mail)}
+                        >
+                          Select
+                        </Button>
                 </Card>
-                //  </TouchableOpacity>
               ))}
 
             {user.OpenFriendReqs.length !== 0 &&
