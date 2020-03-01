@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="a78272af-b3e2-4820-9e40-fc884949a088" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Navigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/Navigator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/Profile.jsx" afterDir="false" />
+=======
+    <list default="true" id="a74b11cd-45a2-43ff-8e6f-73489ada4493" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modals/ShareGps.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/modals/ShareGps.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/HomeF.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/HomeF.jsx" afterDir="false" />
+>>>>>>> features/global-state
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="FUSProjectUsageTrigger">
     <session id="-1660890333">
       <usages-collector id="statistics.lifecycle.project">
@@ -266,12 +274,17 @@
         <option value="$PROJECT_DIR$/screens/Profile.jsx" />
         <option value="$PROJECT_DIR$/screens/Home.jsx" />
         <option value="$PROJECT_DIR$/Navigator.js" />
+=======
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+>>>>>>> features/global-state
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
-    <package-json value="$PROJECT_DIR$/package.json" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -279,75 +292,22 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/package.json" />
-    </packageJsonPaths>
-  </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="gps-share" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gps-share" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gps-share" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gps-share" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gps-share" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gps-share" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gps-share" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gps-share" type="462c0819:PsiDirectoryNode" />
-              <item name="modals" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gps-share" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gps-share" type="462c0819:PsiDirectoryNode" />
-              <item name="screens" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gps-share" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gps-share" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
+  <component name="ProjectId" id="1YV8N0H8kkOdAdTnpiVBoGKTZfi" />
   <component name="PropertiesComponent">
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1582926202915" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gps-share-backend" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\Ruaraidh\WebstormProjects\gps-share\node_modules\prettier" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
@@ -373,13 +333,14 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a78272af-b3e2-4820-9e40-fc884949a088" name="Default Changelist" comment="" />
+      <changelist id="a74b11cd-45a2-43ff-8e6f-73489ada4493" name="Default Changelist" comment="" />
       <created>1582754886531</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1582754886531</updated>
       <workItem from="1582754892082" duration="2745000" />
       <workItem from="1582899396610" duration="17522000" />
+<<<<<<< HEAD
       <workItem from="1582986330199" duration="15366000" />
     </task>
     <servers />
@@ -595,6 +556,28 @@
         </state>
       </provider>
     </entry>
+=======
+      <workItem from="1582986330199" duration="3338000" />
+      <workItem from="1583016357873" duration="19920000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+>>>>>>> features/global-state
   </component>
   <component name="masterDetails">
     <states>
