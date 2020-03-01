@@ -14,6 +14,7 @@ import theme from "../utils/theme";
 
 import useGlobalState from "../context/global";
 import AddFriends from "../modals/AddFriends";
+import Network from "../utils/Network";
 
 const { width } = Dimensions.get("screen");
 
