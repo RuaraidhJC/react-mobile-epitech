@@ -20,6 +20,9 @@ import Storage from '../utils/Storage';
 import Network from '../utils/Network';
 import GestureRecognizer from "react-native-swipe-gestures";
 
+import useGlobalState from '../context/global';
+import AddFriends from "../modals/AddFriends";
+
 const cards = [
     {
         id: 1,
@@ -32,7 +35,7 @@ const cards = [
     {
         id: 2,
         avatar: 'http://i.pravatar.cc/100',
-        title: 'Christopher Moon',
+        title: 'Christopher Moon 2',
         caption: '138 minutes ago',
         location: 'Los Angeles, CA',
         friends: true,
@@ -41,7 +44,7 @@ const cards = [
     {
         id: 3,
         avatar: 'http://i.pravatar.cc/100',
-        title: 'Christopher Moon',
+        title: 'Christopher Moon 3',
         caption: '138 minutes ago',
         location: 'Los Angeles, CA',
         friends: true,
@@ -50,7 +53,7 @@ const cards = [
     {
         id: 4,
         avatar: 'http://i.pravatar.cc/100',
-        title: 'Christopher Moon',
+        title: 'Christopher Moon 4',
         caption: '138 minutes ago',
         location: 'Los Angeles, CA',
         friends: false,
@@ -78,29 +81,32 @@ const cardsreq = [
     },
 ];
 
+export default function ProfileWithState() {
+    const {user} = useGlobalState();
 
-export default class Profile extends React.Component {
-    state = {
-      email: null,
-      loading: true,
+    return (
+        <Profile user={user}/>
+    )
+};
 
-    };
 
-    componentDidMount() {
-      Promise.all(this.getUserData())
-        .then(([email]) => {
-          this.setState({ email, loading: false });
-          console.log('email set');
-          console.log(this.email);
-        })
-        .catch((error) => {
-          this.setState({ loading: false });
-        });
+const BASE_URL = 'https://epitech-react.herokuapp.com/';
+
+
+export class Profile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user : props.user,
+            openSendPage : false,
+        };
+        // this.user = props.user;
+        // this.openSendPage = false;
     }
 
-    getUserData = async () => {
-        this.setState({email: await Storage.getEmail()});
-    };
+    componentDidMount() {
+
+    }
 
     handleMaps = () => {
         this.props.navigation.navigate('homeScreen')
@@ -111,31 +117,51 @@ export default class Profile extends React.Component {
         this.props.navigation.navigate('loginScreen')
     };
 
-    addFriend = (id) => {
-        console.log("adding friend id: " + id)
+    addFriend = async (id) => {
+        console.log("adding friend id: " + id);
+        const friendEmail = this.user.FriendReqs[id].email;
+            try {
+                console.log("add friend " + friendEmail);
+                const response = await Network.get(BASE_URL +
+                    '/add-friend?confirm=true&email=' + friendEmail);
+                console.log(response);
+            } catch (err) {
+                console.log(err);
+            }
     };
 
     refuseFriend = (id) => {
         console.log("refusing friend id: " + id)
     };
 
-    reqFriend = () => {
+    closeModal = async () => {
+        this.setState({ openSendPage: false });
+    };
 
+    reqFriend = () => {
+        this.setState({ openSendPage: true });
     };
 
 
     render() {
         const {
-            email,
-            loading
+            user,
+            openSendPage,
         } = this.state;
+        //const user = this.state.user;
 
-        if (loading)
-            return null;
+        const friendList = user.Friends;
+        const friendReqList = user.FriendReqs;
+
+        console.log(friendList.length);
 
         return (
             <View style={styles.container}>
                 <Block style={styles.container}>
+                    <AddFriends
+                        visible={openSendPage}
+                        onRequestClose={() => this.closeModal()}
+                    />
                     <View style={{flexDirection: "row"}}>
 
                     <Button
@@ -171,9 +197,8 @@ export default class Profile extends React.Component {
                             borderless
                             shadowColor={theme.COLORS.BLACK}
                             style={styles.card}
-                            title="Christopher Moon"
-                            caption="test@test.com"
-                            avatar="http://i.pravatar.cc/100?id=pineaple"
+                            title={user.email}
+                            avatar={BASE_URL + user.profileUrl}
                         />
 
                         <View style={{flexDirection: "row"}}>
@@ -194,9 +219,65 @@ export default class Profile extends React.Component {
 
                         <Text>{'\n'}</Text>
 
-                        {cards && cards.map((card, id) => (
+                        {friendList && friendList.map((card, id) => (
                             <Card
-                                key={`card-${card.image}`}
+                                key={`cardfriend-${card.id}`}
+                                flex
+                                borderless
+                                shadowColor={theme.COLORS.BLACK}
+                                titleColor={card.full ? theme.COLORS.WHITE : null}
+                                style={styles.card}
+                                title={card.email}
+                                avatar={BASE_URL + card.profileUrl}
+                                footerStyle={card.full ? styles.full : null}
+                            >
+                                {card.full ? <LinearGradient colors={['transparent', 'rgba(0,0,0, 0.8)']} style={styles.gradient} /> : null}
+                            </Card>
+                        ))}
+
+                        {friendReqList && friendReqList.map((card, id) => (
+                            <Card
+                               // key={`cardreq-${card.id}`}
+                                flex
+                                borderless
+                                shadowColor={theme.COLORS.GREY}
+                                titleColor={card.full ? theme.COLORS.WHITE : null}
+                                style={styles.card}
+                                title={card.sender}
+                                footerStyle={card.full ? styles.full : null}
+                            >
+                                {card.full ? <LinearGradient colors={['transparent', 'rgba(0,0,0, 0.8)']} style={styles.gradient} /> : null}
+                                <View style={{flexDirection: "row"}}>
+                                    <Button
+                                        style={[styles.button]}
+                                        uppercase
+                                        shadowless
+                                        size="small"
+                                        color="rgb(176, 30, 11)"
+                                        onPress={() => this.refuseFriend(id)}
+                                    >
+                                        Refuse
+                                    </Button>
+                                    <Button
+                                        style={[styles.button]}
+                                        uppercase
+                                        shadowless
+                                        size="small"
+                                        color="rgb(29, 145, 31)"
+                                        onPress={() => this.addFriend(id)}
+                                    >
+                                        Accept
+                                    </Button>
+                                </View>
+                            </Card>
+                        ))}
+
+
+
+
+{/*                        {cards && cards.map((card, id) => (
+                            <Card
+                                key={`cardfriend-${card.id}`}
                                 flex
                                 borderless
                                 shadowColor={theme.COLORS.BLACK}
@@ -214,7 +295,7 @@ export default class Profile extends React.Component {
 
                         {cardsreq && cardsreq.map((card, id) => (
                             <Card
-                                key={`card-${card.image}`}
+                                key={`cardreq-${card.id}`}
                                 flex
                                 borderless
                                 shadowColor={theme.COLORS.GREY}
@@ -248,7 +329,7 @@ export default class Profile extends React.Component {
                                     </Button>
                                 </View>
                             </Card>
-                        ))}
+                        ))}*/}
                     </Block>
                 </ScrollView>
                 </Block>
