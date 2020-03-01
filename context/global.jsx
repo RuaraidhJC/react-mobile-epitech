@@ -1,12 +1,10 @@
-import React, { createContext, useReducer, useContext } from 'react';
-import { Notifications } from 'expo';
-import Network from '../utils/Network';
+import React, { createContext, useReducer, useContext } from "react";
 
 /* Action Types */
-const SET_USER = 'SET_USER';
-const SET_NOTIFICATION_TOKEN = 'SET_NOTIFICATION_TOKEN';
-const SET_EMAIL = 'SET_EMAIL';
-const SET_CURRENT_POSITION = 'SET_CURRENT_POSITION';
+const SET_USER = "SET_USER";
+const SET_NOTIFICATION_TOKEN = "SET_NOTIFICATION_TOKEN";
+const SET_EMAIL = "SET_EMAIL";
+const SET_CURRENT_POSITION = "SET_CURRENT_POSITION";
 
 /* Define a context and a reducer for updating the context */
 const GlobalStateContext = createContext();
@@ -19,9 +17,9 @@ const initialState = {
     notificationToken: null,
     Positions: [],
     OpenFriendReqs: [],
-    Friends: [],
+    Friends: []
   },
-  currentPosition: null,
+  currentPosition: null
 };
 
 const globalStateReducer = (state, action) => {
@@ -29,22 +27,22 @@ const globalStateReducer = (state, action) => {
     case SET_EMAIL:
       return {
         ...state,
-        user: { ...state.user, email: action.payload },
+        user: { ...state.user, email: action.payload }
       };
     case SET_NOTIFICATION_TOKEN:
       return {
         ...state,
-        user: { ...state.user, notificationToken: action.payload },
+        user: { ...state.user, notificationToken: action.payload }
       };
     case SET_USER:
       return {
         ...state,
-        user: { ...action.payload },
+        user: { ...action.payload }
       };
     case SET_CURRENT_POSITION:
       return {
         ...state,
-        currentPosition: action.payload,
+        currentPosition: action.payload
       };
 
     default:
@@ -55,10 +53,7 @@ const globalStateReducer = (state, action) => {
 /* Export a component to provide the context to its children. This is used in our _app.js file */
 
 export const GlobalStateProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(
-    globalStateReducer,
-    initialState,
-  );
+  const [state, dispatch] = useReducer(globalStateReducer, initialState);
   return (
     <GlobalStateContext.Provider value={[state, dispatch]}>
       {children}
@@ -74,29 +69,35 @@ This also allows us to keep all of this state logic in this one file
 const useGlobalState = () => {
   const [state, dispatch] = useContext(GlobalStateContext);
 
-  const setNotificationToken = (notificationToken) => {
+  const setNotificationToken = notificationToken => {
     dispatch({
       type: SET_NOTIFICATION_TOKEN,
-      payload: notificationToken,
+      payload: notificationToken
     });
   };
 
-  const setCurrentPosition = (currentPosition) => {
+  const setCurrentPosition = currentPosition => {
     dispatch({
       type: SET_CURRENT_POSITION,
-      payload: currentPosition,
+      payload: currentPosition
     });
   };
 
-  const setEmail = (email) => {
+  const setEmail = email => {
     dispatch({
       type: SET_EMAIL,
-      payload: email,
+      payload: email
     });
   };
 
   const setUser = ({
-    id, email, profileUrl, Positions, OpenFriendReqs, Friends, notificationToken,
+    id,
+    email,
+    profileUrl,
+    Positions,
+    OpenFriendReqs,
+    Friends,
+    notificationToken
   }) => {
     dispatch({
       type: SET_USER,
@@ -107,8 +108,8 @@ const useGlobalState = () => {
         notificationToken,
         Positions,
         OpenFriendReqs,
-        Friends,
-      },
+        Friends
+      }
     });
   };
 
@@ -118,7 +119,7 @@ const useGlobalState = () => {
     setEmail,
     setNotificationToken,
     user: { ...state.user },
-    currentPosition: state.currentPosition,
+    currentPosition: state.currentPosition
   };
 };
 
