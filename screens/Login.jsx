@@ -7,12 +7,14 @@ import {
   Block, Button, Input, Toast, Text,
 } from 'galio-framework';
 
-import Storage from '../utils/Storage';
 import Network from '../utils/Network';
+import useGlobalState from '../context/global';
 
 export default function Login(props) {
-  const [email] = useState('');
   const [isShow, setShow] = useState(false);
+  const globalState = useGlobalState();
+  const { notificationToken } = globalState.user;
+  const { setUser } = globalState;
   const schema = yup.object({
     email: yup
       .string()
@@ -26,19 +28,13 @@ export default function Login(props) {
   });
 
   const submitLogin = async (values) => {
-    console.log(values);
-    const notificationToken = await Storage.getNotificationToken();
-    console.log(notificationToken);
-    const response = await Network.post('login', {
+    const response = await Network.post('/login', {
       email: values.email,
       password: values.password,
       notificationToken,
     });
-
     if (response.data.success) {
-      await Storage.setEmail(values.email);
-      await Storage.setJwt(response.data.token);
-      Network.defaults.headers.common.Authorization = response.data.token;
+      setUser(response.data.data);
       return props.navigation.navigate('homeScreen');
     }
     setShow(true);
@@ -46,20 +42,15 @@ export default function Login(props) {
   };
 
   const submitRegister = async (values) => {
-    const notificationToken = await Storage.getNotificationToken();
     const { navigation } = props;
-    const response = await Network.post('register', {
+    const response = await Network.post('/signup', {
       email: values.email,
       password: values.password,
-      confirmPassword: values.password,
       notificationToken,
     });
-    console.log(response.data);
     if (response.data.success) {
-      await Storage.setEmail(email);
-      await Storage.setJwt(response.data.token);
-      Network.defaults.headers.common.Authorization = response.data.token;
-      return navigation.navigate('homeeScreen');
+      setUser(response.data.data);
+      return navigation.navigate('homeScreen');
     }
     setShow(true);
     return true;
@@ -127,7 +118,9 @@ export default function Login(props) {
                   help={
                     touched.email && errors.email ? (
                       <Text style={{ color: 'red' }}>{errors.email}</Text>
-                    ) : undefined
+                    ) : (
+                      undefined
+                    )
                   }
                   placeholder="E-mail"
                 />
@@ -145,7 +138,9 @@ export default function Login(props) {
                   help={
                     touched.password && errors.password ? (
                       <Text style={{ color: 'red' }}>{errors.password}</Text>
-                    ) : undefined
+                    ) : (
+                      undefined
+                    )
                   }
                   placeholder="Password"
                 />
@@ -213,7 +208,8 @@ export default function Login(props) {
 }
 
 Login.propTypes = {
-  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
+  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired })
+    .isRequired,
 };
 
 StyleSheet.create({
