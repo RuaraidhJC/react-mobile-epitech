@@ -176,26 +176,12 @@ StyleSheet.create({
     alignItems: "center"
   }
 });
-
-/* ShareGps.propTypes = {
+/*
+ ShareGps.propTypes = {
   coordinate: PropTypes.arrayOf(PropTypes.number).isRequired,
   address: PropTypes.string.isRequired,
   onRequestClose: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
-}; */
+};*/
 
 export default ShareGps;
-/*
- <View
-        style={{
-          backgroundColor: 'white',
-          borderRadius: 4,
-          flexDirection: 'column',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-        }}
-      >
-        <TextInput onChangeText={(text) => setMessage(text)} />
-        <Button onPress={() => submit()} title="Envoyer à mon ami!" />
-      </View>
-  */

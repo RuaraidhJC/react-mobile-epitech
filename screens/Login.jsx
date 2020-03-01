@@ -26,7 +26,7 @@ export default function Login(props) {
   });
 
   const submitLogin = async values => {
-    console.log(values)
+    console.log(values);
     const response = await Network.post("/login", {
       email: values.email,
       password: values.password,
@@ -42,7 +42,7 @@ export default function Login(props) {
   };
 
   const submitRegister = async values => {
-    console.log(values, notificationToken)
+    console.log(values, notificationToken);
     const { navigation } = props;
     const response = await Network.post("/signup", {
       email: values.email,
@@ -164,7 +164,8 @@ export default function Login(props) {
                             Keyboard.dismiss();
                             submitLogin(values);
                           }
-                        })}
+                        })
+                      }
                       icon="unlock"
                       iconFamily="antdesign"
                       title="Login"
@@ -191,7 +192,8 @@ export default function Login(props) {
                             Keyboard.dismiss();
                             submitRegister(values);
                           }
-                        })}
+                        })
+                      }
                       title="Register"
                     >
                       <Text style={{ color: "rgb(0, 177, 238)" }}>

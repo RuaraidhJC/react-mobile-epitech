@@ -1,0 +1,1 @@
+To run the app, run npm install, then expo start.

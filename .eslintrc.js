@@ -16,6 +16,9 @@ module.exports = {
         },
         "ecmaVersion": 2018
     },
+     "settings": {
+	 "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+     },
     "plugins": [
         "react",
     ],

@@ -5,6 +5,18 @@ import { Block, Button, Input } from "galio-framework";
 
 import Network from "../utils/Network";
 
+const styles = StyleSheet.create({
+  buttonStyle: {
+    flexDirection: "column",
+    height: 50,
+    alignItems: "center"
+  },
+  block: {
+    backgroundColor: "white",
+    height: "30%"
+  }
+});
+
 function AddFriends(props) {
   const [message, setMessage] = useState("");
   const { visible, onRequestClose } = props;
@@ -58,17 +70,5 @@ function AddFriends(props) {
     </Modal>
   );
 }
-
-const styles = StyleSheet.create({
-  buttonStyle: {
-    flexDirection: "column",
-    height: 50,
-    alignItems: "center"
-  },
-  block: {
-    backgroundColor: "white",
-    height: "30%"
-  }
-});
 
 export default AddFriends;
