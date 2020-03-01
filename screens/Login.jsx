@@ -26,7 +26,7 @@ export default function Login(props) {
   });
 
   const submitLogin = async values => {
-    console.log(values)
+    console.log(values);
     const response = await Network.post("/login", {
       email: values.email,
       password: values.password,
@@ -42,7 +42,7 @@ export default function Login(props) {
   };
 
   const submitRegister = async values => {
-    console.log(values, notificationToken)
+    console.log(values, notificationToken);
     const { navigation } = props;
     const response = await Network.post("/signup", {
       email: values.email,
