@@ -12,8 +12,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Card, Block, Button } from "galio-framework";
 import theme from "../utils/theme";
 
-import Network from "../utils/Network";
-
 import useGlobalState from "../context/global";
 import AddFriends from "../modals/AddFriends";
 
