@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint ."
+    "lint": "eslint *.js *.jsx **/*.js **/*.jsx"
   },
   "dependencies": {
     "axios": "^0.19.0",

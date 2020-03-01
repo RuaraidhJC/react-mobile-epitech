@@ -4,7 +4,7 @@ module.exports = {
         "commonjs": true,
         "es6": true
     },
-    "extends": "airbnb",
+    "extends": ["airbnb", "plugin:prettier/recommended"],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -17,7 +17,7 @@ module.exports = {
         "ecmaVersion": 2018
     },
     "plugins": [
-        "react"
+        "react",
     ],
     "rules": {
     }
