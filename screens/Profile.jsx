@@ -120,6 +120,10 @@ export default class Profile extends React.Component {
         console.log("refusing friend id: " + id)
     };
 
+    reqFriend = () => {
+
+    };
+
 
     render() {
         const {
@@ -173,7 +177,23 @@ export default class Profile extends React.Component {
                             avatar="http://i.pravatar.cc/100?id=pineaple"
                         />
 
-                        <Text style={styles.title}> Friends </Text>
+                        <View style={{flexDirection: "row"}}>
+
+                        <Text style={styles.titleleft}> Friends </Text>
+
+                        <Button
+                            style={[styles.buttonadd]}
+                            uppercase
+                            shadowless
+                            size="small"
+                            color="rgb(0, 177, 238)"
+                            onPress={this.reqFriend}
+                        >
+                            ADD
+                        </Button>
+                        </View>
+
+                        <Text>{'\n'}</Text>
 
                         {cards && cards.map((card, id) => (
                             <Card
@@ -255,6 +275,12 @@ const styles = StyleSheet.create({
         color: '#1e1e1e',
         marginBottom: 20,
     },
+    titleleft: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: '#1e1e1e',
+        marginBottom: 20,
+    },
     big: {
         fontSize: 20,
         color: '#000'
@@ -266,6 +292,11 @@ const styles = StyleSheet.create({
     },
     button: {
         width: (width - theme.SIZES.BASE * 2) / 2,
+    },
+    buttonadd: {
+        position: 'absolute',
+        right: 0,
+        width: 100,
     },
     buttonl: {
         right: '60%',
