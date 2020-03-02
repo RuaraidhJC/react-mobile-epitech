@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
   button: {
     width: (width - theme.SIZES.BASE * 2) / 2
   },
+  buttonfriend: {
+    width: width - theme.SIZES.BASE * 2
+  },
   buttonadd: {
     position: "absolute",
     right: 0,
@@ -234,7 +237,7 @@ export default function Profile(props) {
                     />
                   ) : null}
                         <Button
-                            style={[styles.button]}
+                            style={[styles.buttonfriend]}
                             uppercase
                             shadowless
                             size="small"
