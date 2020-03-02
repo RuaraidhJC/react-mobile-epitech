@@ -34,7 +34,8 @@ export default function Login(props) {
       notificationToken,
     });
     if (response.data.success) {
-      setUser(response.data.data);
+      const me = await Network.get('/me');
+      setUser(me.data.data);
       return props.navigation.navigate('homeScreen');
     }
     setShow(true);
@@ -49,7 +50,8 @@ export default function Login(props) {
       notificationToken,
     });
     if (response.data.success) {
-      setUser(response.data.data);
+      const me = await Network.get('/me');
+      setUser(me.data.data);
       return navigation.navigate('homeScreen');
     }
     setShow(true);

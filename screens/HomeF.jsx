@@ -49,7 +49,8 @@ const HomeF = (props) => {
   const [openModal, setOpenModal] = useState(false);
 
   const { navigation } = props;
-
+  //console.log(user);
+   // console.log(props)
   useEffect(() => {
     const getPosition = async () => {
       const coords = await getLocationAsync();
@@ -67,22 +68,13 @@ const HomeF = (props) => {
           setUser(response.data.data);
         }
       }
-      return null;
+      return () => Notifications.remove();
     });
   });
 
   if (isPositionSet) {
     return (
       <Block flex center style={styles.container}>
-        <Button
-          style={{ alignSelf: 'center' }}
-          uppercase
-          size="small"
-          color="rgb(206, 102, 89)"
-          onPress={() => navigation.navigate('profileScreen')}
-        >
-          Profile
-        </Button>
         <ShareGps
           coords={currentPosition}
           visible={openModal}
@@ -99,40 +91,53 @@ const HomeF = (props) => {
             longitudeDelta: 0.1,
           }}
         >
-          {isMapReady
-                    && (
-                    <MapView.Marker
-                      coordinate={{ latitude: currentPosition.latitude, longitude: currentPosition.longitude }}
-                      title="My Location"
-                    >
-                      <Image source={{ uri: user.profileUrl }} style={{ height: 35, width: 35 }} />
-                    </MapView.Marker>
-                    )}
+          {isMapReady && user.Positions.length !== 0 && user.Positions.map((elem) => (
+            <MapView.Marker
+              key={1}
+              coordinate={{ latitude: elem.latitude, longitude: elem.longitude }}
+              title="My Location"
+            >
+              <Image source={{ uri: `https://epitech-react.herokuapp.com${user.profileUrl}` }} style={{ height: 35, width: 35 }} />
+            </MapView.Marker>
+          ))}
 
-          {isMapReady && user['Friends'].length !== 0
-                    && user['Friends']['Positions'].map((elem) => (
+
+          {isMapReady && user.Friends.length !== 0
+                    && user.Friends[0].Positions.map((elem) => (
                       <MapView.Marker
-                        key={elem.notificationId}
+                        key={user.Friends[0].findIndex(elem)}
                         coordinate={{
                           latitude: elem.data.coordinate[0],
                           longitude: elem.data.coordinate[1],
                         }}
                         title={elem.data.email}
                       >
-                          <Image source={{ uri: elem.profileUrl }} style={{ height: 35, width: 35 }} />
+                        <Image source={{ uri: `https://epitech-react.herokuapp.com${user.profileUrl}` }} style={{ height: 35, width: 35 }} />
                       </MapView.Marker>
                     ))}
         </MapView>
 
-        <Button
-          style={{ alignSelf: 'center' }}
-          uppercase
-          size="small"
-          color="rgb(0, 177, 238)"
-          onPress={() => { setOpenModal(true); }}
-        >
-          Swipe up to share my position
-        </Button>
+          <Block row>
+              <Button
+                  style={{ marginHorizontal: 15  }}
+                  uppercase
+                  size="small"
+                  color="rgb(206, 102, 89)"
+                  onPress={() => navigation.navigate('profileScreen')}
+              >
+                  Profile
+              </Button>
+              <Button
+                  style={{ marginHorizontal: 15 }}
+                  uppercase
+                  size="small"
+                  color="rgb(0, 177, 238)"
+                  onPress={() => { setOpenModal(true); }}
+              >
+                  share my position
+              </Button>
+          </Block>
+
       </Block>
     );
   }

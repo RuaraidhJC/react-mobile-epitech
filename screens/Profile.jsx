@@ -150,7 +150,7 @@ export class Profile extends React.Component {
         } = this.state;
 
         const friendList = user.Friends;
-        const friendReqList = user.FriendReqs;
+        const friendReqList = user.OpenFriendReqs;
 
         //console.log(friendList.length);
 
