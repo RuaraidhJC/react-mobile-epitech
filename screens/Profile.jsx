@@ -81,11 +81,12 @@ const cardsreq = [
     },
 ];
 
-export default function ProfileWithState() {
+export default function ProfileWithState(props) {
     const {user} = useGlobalState();
 
+    const {navigation} = props;
     return (
-        <Profile user={user}/>
+        <Profile user={user} navigation={navigation} />
     )
 };
 
@@ -98,10 +99,9 @@ export class Profile extends React.Component {
         super(props);
         this.state = {
             user : props.user,
+            navigation : props.navigation,
             openSendPage : false,
         };
-        // this.user = props.user;
-        // this.openSendPage = false;
     }
 
     componentDidMount() {
@@ -148,12 +148,11 @@ export class Profile extends React.Component {
             user,
             openSendPage,
         } = this.state;
-        //const user = this.state.user;
 
         const friendList = user.Friends;
         const friendReqList = user.FriendReqs;
 
-        console.log(friendList.length);
+        //console.log(friendList.length);
 
         return (
             <View style={styles.container}>
